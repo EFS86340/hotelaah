@@ -1,12 +1,12 @@
 package hotelaah
 
 import (
-		"net/http"
-		"log"
-		"strings"
+	"net/http"
+	"log"
+	"strings"
 
-		"github.com/PuerkitoBio/goquery"
-		"github.com/djimenez/iconv-go"
+	"github.com/PuerkitoBio/goquery"
+	"github.com/djimenez/iconv-go"
 )
 
 type StringPair struct {
@@ -16,6 +16,11 @@ type StringPair struct {
 
 func (sp *StringPair) String() string {
 	return "[" + sp.First + "," + sp.Second + "]"
+}
+
+// implement AahData interface
+func (sp *StringPair) Value() []byte {
+	return []byte("hi")
 }
 
 // GET the content from a given url
