@@ -1,4 +1,4 @@
-module hotelaah
+module github.com/EFS86340/hotelaah
 
 go 1.15
 

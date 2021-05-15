@@ -88,6 +88,7 @@ func (k *Kafkee) PublishBatch(datas []AahData) {
 
 // Disconnect from kafka broker
 func (k *Kafkee) Disconnect() bool {
+	// close(k.deliveryChan)
 	return true
 }
 
