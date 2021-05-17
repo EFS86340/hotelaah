@@ -11,11 +11,9 @@ type AahData interface {
 
 	// should be transferred to kafka message
 	Value() []byte
-
 }
 
 type KafkeeCallBack interface {
-
 }
 
 // A kafka producer has 3 mandatory properties:
@@ -31,9 +29,9 @@ type KafkeeCallBack interface {
 // the producer to write data to kafka
 type Kafkee struct {
 	broker string
-	topic string
+	topic  string
 
-	ok bool 
+	ok bool
 	pd *kafka.Producer
 	// TODO: whether channel should be declared and defined else where
 	deliveryChan chan kafka.Event
@@ -42,8 +40,8 @@ type Kafkee struct {
 func NewKafkee(t, b string) *Kafkee {
 	return &Kafkee{
 		broker: b,
-		topic: t,
-		ok: false,
+		topic:  t,
+		ok:     false,
 	}
 }
 
@@ -66,15 +64,27 @@ func (k *Kafkee) IsOk() bool {
 
 // publish a message to topic
 func (k *Kafkee) Publish(data AahData) {
+	// cannot move below to Init()
+	k.deliveryChan = make(chan kafka.Event)
 	err := k.pd.Produce(&kafka.Message{
 		TopicPartition: kafka.TopicPartition{
 			Topic: &(k.topic), Partition: kafka.PartitionAny},
-	Value: data.Value(),
-	Headers: []kafka.Header{{Key: "testHeader", Value: []byte("Headers value")}},
+		Value:   data.Value(),
+		Headers: []kafka.Header{{Key: "testHeader", Value: []byte("Headers value")}},
 	}, k.deliveryChan)
-				 if err != nil {
 
-				 }
+	e := <-k.deliveryChan
+	m := e.(*kafka.Message)
+
+	if err != nil {
+
+	}
+
+	if m.TopicPartition.Error != nil {
+		log.Printf("[kafka] Delivery failed: %v\n", m.TopicPartition.Error)
+	} else {
+		log.Printf("[kafka] Delivered Message to topic %s [%d] at offset %v\n", *m.TopicPartition.Topic, m.TopicPartition.Partition, m.TopicPartition.Offset)
+	}
 
 }
 
@@ -91,7 +101,6 @@ func (k *Kafkee) Disconnect() bool {
 	// close(k.deliveryChan)
 	return true
 }
-
 
 type KafkeeManager struct {
 	kees []Kafkee

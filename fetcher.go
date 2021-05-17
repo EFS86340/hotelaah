@@ -20,7 +20,7 @@ func (sp *StringPair) String() string {
 
 // implement AahData interface
 func (sp *StringPair) Value() []byte {
-	return []byte("hi")
+	return []byte(sp.String())
 }
 
 // GET the content from a given url
