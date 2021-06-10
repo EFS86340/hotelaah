@@ -1,0 +1,40 @@
+syntax = "proto3"
+
+service Haal {
+
+	rpc PullCities(PullRequest) returns (PullResponse) {}
+
+	rpc PushProvCities(ProvCitiesRequest) returns (ProvCitiesResponse) {}
+
+	rpc DelProvCities(ProvCitiesRequest) returns (ProvCitiesResponse) {}
+
+}
+
+message Province {
+	string p = 1;
+}
+
+message City {
+	string c = 1;
+}
+
+message ProvCity {
+	Province p = 1;
+	City c = 2;
+}
+
+message PullRequest {
+	Province p = 1;
+}
+
+message PullResponse {
+	repeated City cities = 1;
+}
+
+message ProvCitiesRequest {
+	repeated ProvCity pcs = 1;
+}
+
+message ProvCitiesResponse {
+	repeated bool ok = 1;
+}
