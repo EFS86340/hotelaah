@@ -1,3 +1,5 @@
 bin/kafk*
 
 scripts/kafka_2.13-2.8.0
+
+*.pb.go

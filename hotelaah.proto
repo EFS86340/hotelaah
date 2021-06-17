@@ -1,4 +1,8 @@
-syntax = "proto3"
+syntax = "proto3";
+
+option go_package = "github.com/EFS86340/hotelaah";
+
+package hotelaah;
 
 service Haal {
 
