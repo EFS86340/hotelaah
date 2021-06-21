@@ -1,8 +1,8 @@
 package hotelaah
 
 import (
-		"testing"
-		)
+	"testing"
+)
 
 func TestListen(t *testing.T) {
 

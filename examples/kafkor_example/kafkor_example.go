@@ -1,11 +1,11 @@
 package main
 
 import (
-"fmt"
-"os"
+	"fmt"
+	"os"
 
-"github.com/EFS86340/hotelaah"
-		)
+	"github.com/EFS86340/hotelaah"
+)
 
 func main() {
 	if len(os.Args) < 4 {

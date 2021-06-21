@@ -1,8 +1,8 @@
 package hotelaah
 
 import (
-	"net/http"
 	"log"
+	"net/http"
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
@@ -10,7 +10,7 @@ import (
 )
 
 type StringPair struct {
-	First string
+	First  string
 	Second string
 }
 
@@ -38,8 +38,8 @@ func NewFetcher(s string) *Fetcher {
 // filter \t \n without package strings
 // func specialCharFilter(s string) []string {
 // 	result := []string
-// 	for 
-// 
+// 	for
+//
 // }
 
 // the encoding of the given url is gb2312
@@ -66,8 +66,10 @@ func (f *Fetcher) GetAndExtract() ([]StringPair, error) {
 		var p StringPair
 		s.Find("td").Each(func(j int, ss *goquery.Selection) {
 			switch j {
-				case 1: p.First = strings.Trim(ss.Text(), "\n \t")
-				case 2: p.Second = strings.Trim(ss.Text(), "\n \t")
+			case 1:
+				p.First = strings.Trim(ss.Text(), "\n \t")
+			case 2:
+				p.Second = strings.Trim(ss.Text(), "\n \t")
 			}
 		})
 		sp = append(sp, p)
